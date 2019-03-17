@@ -1,0 +1,30 @@
+dist: xenial
+services: docker
+language: minimal
+
+env:
+- COMPILER=clang
+  DEB_REPOSITORY=http://apt.llvm.org/xenial/
+  DEB_DISTRIBUTION=llvm-toolchain-xenial-8
+  DEB_COMPONENT=main
+  DEB_FINGERPRINT=6084F3CF814B57C1CF12EFD515CF4D18AF4F7421
+  DEB_PACKAGES='clang-8 libc++-8-dev libc++abi-8-dev'
+- COMPILER=gcc
+  DEB_REPOSITORY=http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu
+  DEB_DISTRIBUTION=xenial
+  DEB_COMPONENT=main
+  DEB_FINGERPRINT=60C317803A41BA51845E371A1E9377A2BA9EF27F
+  DEB_PACKAGES=g++-8
+
+script:
+- docker build -t r3v-toolchain-$COMPILER --build-arg DEB_REPOSITORY --build-arg DEB_DISTRIBUTION --build-arg DEB_COMPONENT --build-arg DEB_FINGERPRINT --build-arg DEB_PACKAGES .
+- docker save r3v-toolchain-$COMPILER | xz -9ev > r3v-toolchain-$COMPILER.txz
+
+deploy:
+ provider: releases
+ api_key:
+  secure: ""
+ file: r3v-toolchain-$COMPILER.txz
+ skip_cleanup: true
+ on:
+  tags: true
