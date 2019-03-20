@@ -14,7 +14,8 @@ env:
 
 script:
 - docker build -t r3v-toolchain-$COMPILER:$TRAVIS_BRANCH --build-arg DEB_SOURCE --build-arg DEB_FINGERPRINT --build-arg DEB_PACKAGES .
-- docker save r3v-toolchain-$COMPILER:$TRAVIS_BRANCH | xz -9ev > r3v-toolchain-$COMPILER-$TRAVIS_BRANCH.txz
+- docker create --name r3v-toolchain-$COMPILER:$TRAVIS_BRANCH r3v-toolchain-$COMPILER:$TRAVIS_BRANCH
+- docker export r3v-toolchain-$COMPILER:$TRAVIS_BRANCH | xz -9ev > r3v-toolchain-$COMPILER-$TRAVIS_BRANCH.txz
 
 deploy:
  provider: releases
