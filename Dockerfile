@@ -1,7 +1,8 @@
-FROM ubuntu:19.04
+FROM ubuntu:18.04
 ARG DEB_SOURCE
 ARG DEB_FINGERPRINT
 ARG DEB_PACKAGES
+RUN apt-get update && apt-get install -y gnupg
 RUN echo "deb $DEB_SOURCE" >> /etc/apt/sources.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $DEB_FINGERPRINT
 RUN apt-get update
