@@ -3,25 +3,25 @@ services: docker
 language: minimal
 
 env:
-- COMPILER=clang
-  DEB_SOURCE="http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main"
-  DEB_FINGERPRINT=6084F3CF814B57C1CF12EFD515CF4D18AF4F7421
+- TOOLCHAIN=clang
+# DEB_SOURCE="http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main"
+# DEB_FINGERPRINT=6084F3CF814B57C1CF12EFD515CF4D18AF4F7421
   DEB_PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
-- COMPILER=gcc
-  DEB_SOURCE="http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu xenial main"
-  DEB_FINGERPRINT=60C317803A41BA51845E371A1E9377A2BA9EF27F
+- TOOLCHAIN=gcc
+# DEB_SOURCE="http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu xenial main"
+# DEB_FINGERPRINT=60C317803A41BA51845E371A1E9377A2BA9EF27F
   DEB_PACKAGES=g++-8
 
 script:
-- docker build -t r3v-toolchain-$COMPILER:$TRAVIS_BRANCH --build-arg DEB_SOURCE --build-arg DEB_FINGERPRINT --build-arg DEB_PACKAGES .
-- docker create --name r3v-toolchain-$COMPILER-$TRAVIS_BRANCH r3v-toolchain-$COMPILER:$TRAVIS_BRANCH
-- docker export r3v-toolchain-$COMPILER-$TRAVIS_BRANCH | xz -9ev > r3v-toolchain-$COMPILER-$TRAVIS_BRANCH.txz
+- docker build -t r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH --build-arg DEB_SOURCE --build-arg DEB_FINGERPRINT --build-arg DEB_PACKAGES .
+- docker create --name r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH
+- docker export r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH | xz -9ev > r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH.txz
 
 deploy:
  provider: releases
  api_key:
   secure: "Hsafa7WaK9qYkGhQK8N/qwS/AbGOMaWTDmWkG7HeOof18wjdQLzkuoylADfSnV90+yvxa9VGgf1MkeEG4HtZqacrAZ4gumP0FM2cWFu46orRdf1DWymnHdR7wTv1GcTBmwB5YIqhK+cUyvgA4Ljg/Z6S19zogvm+gaTH50hHhamkrmLsaOVkbhHwjYLdr0O/XPf9CDqU23TmOEyuM/R2LpzRV3txo4cx4/4LXIXi3KiKf15qqlXTFdNGkKvYwr1ElXTjaA6DKDjlB39Z0zImW3+Z3CVUL7aEyfYWFaMaOjIBlVXlmlhih9+afxgzeYpJ/y00Y3/w/HKxV+za/MwitxY1HYEDZUSWjEYaTRl1tbMyDpn32/V8OTd221SaH3i1Gn/Lgk4H6sRWARyva12e5M56jVavNbmwvR1dy69RFq1luaLqbH7SA3C35qjOf/rTM6f7kKcyQtEoc8NtRV2j9wAcMRHUCFKQ7bN6m/wcOp7fCXCC8iuByWhqmFCwsmEE11iRhVoTRF0xqBejHf5ns4f3JUANVSunkxcLvHgaPzA0PuCxCMa2pYhIyqnP3s0lX04Wxy7nccyFfRn9BhR1zB+bZecP1DQF3gWooN6qyXQ2cFKSm6Lx45sFX42QHL61Z+XF9ErLE0sGyR4YCV2spFvaGUZ+JOH0WryI27WDtL8="
- file: r3v-toolchain-$COMPILER-$TRAVIS_BRANCH.txz
+ file: r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH.txz
  skip_cleanup: true
  on:
   tags: true
