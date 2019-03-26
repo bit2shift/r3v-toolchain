@@ -4,12 +4,12 @@ language: minimal
 
 env:
 - TOOLCHAIN=clang
-# DEB_SOURCE="http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main"
-# DEB_FINGERPRINT=6084F3CF814B57C1CF12EFD515CF4D18AF4F7421
+  DEB_SOURCE="http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main"
+  DEB_FINGERPRINT=6084F3CF814B57C1CF12EFD515CF4D18AF4F7421
   DEB_PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
 - TOOLCHAIN=gcc
-# DEB_SOURCE="http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu xenial main"
-# DEB_FINGERPRINT=60C317803A41BA51845E371A1E9377A2BA9EF27F
+  DEB_SOURCE="http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu xenial main"
+  DEB_FINGERPRINT=60C317803A41BA51845E371A1E9377A2BA9EF27F
   DEB_PACKAGES=g++-8
 
 script:
