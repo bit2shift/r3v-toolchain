@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 ARG DEB_SOURCE
 ARG DEB_FINGERPRINT
 ARG DEB_PACKAGES
-RUN set -e;\
+RUN trap exit ERR;\
     apt-get update;\
     apt-get install -y --no-install-recommends gnupg;\
     echo "deb $DEB_SOURCE" >> /etc/apt/sources.list;\
