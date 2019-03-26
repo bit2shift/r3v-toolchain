@@ -3,7 +3,7 @@ ARG DEB_SOURCE
 ARG DEB_FINGERPRINT
 ARG DEB_PACKAGES
 RUN apt-get update;\
-    apt-get install -y gnupg;\
+    apt-get install -y --no-install-recommends gnupg;\
     echo "deb $DEB_SOURCE" >> /etc/apt/sources.list;\
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $DEB_FINGERPRINT;\
     apt-get update;\
