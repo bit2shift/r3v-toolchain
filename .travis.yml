@@ -7,8 +7,8 @@ env:
  - TOOLCHAIN=clang PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
  - TOOLCHAIN=gcc   PACKAGES="g++-8"
  global:
- -     IMAGE=r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH
- - CONTAINER=r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH
+ -     IMAGE='r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH'
+ - CONTAINER='r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH'
 
 script:
 - docker build -t $IMAGE --build-arg PACKAGES .
