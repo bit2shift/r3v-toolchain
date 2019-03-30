@@ -9,6 +9,6 @@ RUN trap exit ERR;\
 #   echo "deb $DEB_SOURCE" >> /etc/apt/sources.list;\
 #   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $DEB_FINGERPRINT;\
     apt-get update;\
-    apt-get dist-upgrade -y --no-install-recommends $DEB_PACKAGES cmake make pkg-config libvulkan-dev xorg-dev;\
+    apt-get dist-upgrade -y --no-install-recommends $DEB_PACKAGES cmake jq make pkg-config libvulkan-dev xorg-dev;\
     apt-get autoremove -y;\
     apt-get clean
