@@ -8,18 +8,20 @@ env:
 - TOOLCHAIN=gcc
   PACKAGES="g++-8"
 
+before_script:
+- IMAGE=r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH
+- CNTNR=r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH
+
 script:
--     IMAGE=r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH
-- CONTAINER=r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH
 - docker build -t $IMAGE --build-arg PACKAGES .
-- docker create --name $CONTAINER $IMAGE
-- docker export $CONTAINER | xz -9ev > $CONTAINER.txz
+- docker create --name $CNTNR $IMAGE
+- docker export $CNTNR | xz -9ev > $CNTNR.txz
 
 deploy:
  provider: releases
  api_key:
   secure: "Hsafa7WaK9qYkGhQK8N/qwS/AbGOMaWTDmWkG7HeOof18wjdQLzkuoylADfSnV90+yvxa9VGgf1MkeEG4HtZqacrAZ4gumP0FM2cWFu46orRdf1DWymnHdR7wTv1GcTBmwB5YIqhK+cUyvgA4Ljg/Z6S19zogvm+gaTH50hHhamkrmLsaOVkbhHwjYLdr0O/XPf9CDqU23TmOEyuM/R2LpzRV3txo4cx4/4LXIXi3KiKf15qqlXTFdNGkKvYwr1ElXTjaA6DKDjlB39Z0zImW3+Z3CVUL7aEyfYWFaMaOjIBlVXlmlhih9+afxgzeYpJ/y00Y3/w/HKxV+za/MwitxY1HYEDZUSWjEYaTRl1tbMyDpn32/V8OTd221SaH3i1Gn/Lgk4H6sRWARyva12e5M56jVavNbmwvR1dy69RFq1luaLqbH7SA3C35qjOf/rTM6f7kKcyQtEoc8NtRV2j9wAcMRHUCFKQ7bN6m/wcOp7fCXCC8iuByWhqmFCwsmEE11iRhVoTRF0xqBejHf5ns4f3JUANVSunkxcLvHgaPzA0PuCxCMa2pYhIyqnP3s0lX04Wxy7nccyFfRn9BhR1zB+bZecP1DQF3gWooN6qyXQ2cFKSm6Lx45sFX42QHL61Z+XF9ErLE0sGyR4YCV2spFvaGUZ+JOH0WryI27WDtL8="
- file: $CONTAINER.txz
+ file: $CNTNR.txz
  skip_cleanup: true
  on:
   tags: true
