@@ -1,14 +1,8 @@
 FROM ubuntu:disco
 SHELL ["bash", "-c"]
-ARG DEB_SOURCE
-ARG DEB_FINGERPRINT
-ARG DEB_PACKAGES
+ARG PACKAGES
 RUN trap exit ERR;\
-#   apt-get update;\
-#   apt-get install -y --no-install-recommends gnupg;\
-#   echo "deb $DEB_SOURCE" >> /etc/apt/sources.list;\
-#   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $DEB_FINGERPRINT;\
     apt-get update;\
-    apt-get dist-upgrade -y --no-install-recommends $DEB_PACKAGES cmake jq make pkg-config libvulkan-dev xorg-dev;\
+    apt-get dist-upgrade -y --no-install-recommends $PACKAGES cmake jq make pkg-config libvulkan-dev xorg-dev;\
     apt-get autoremove -y;\
     apt-get clean
