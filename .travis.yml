@@ -3,25 +3,24 @@ services: docker
 language: minimal
 
 env:
-- TOOLCHAIN=clang
-  PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
-- TOOLCHAIN=gcc
-  PACKAGES="g++-8"
+ global:
+ - secure: "Q3WGL8pLF5+fkKBM0vfTVc6Eo65fv3iwbFNoqIV9+0j9AGjpI/5EVqbTNnypt3V/cDEuT9tVwhjmYXX9DVFp1w6ltkbYh7RyYiIHkgI8dtcoYpxAlCGApCNGqppzsYhCho7S8KCYpkMDBVx+R+44Bghh7A6avSoYkwMDXxbtCiKB8MhjCwuhSskvWndU65Tj6k3wa8BNfPXTnFBqQ4HtjOdO4exl8IBYU1DXSZrVOs9cNMYhVvxdZGY2ZZxekQvkAlIQjrJJ6tE5mxmmzsx/s5TlwEhp4u0bi4QnnuOHxxJvWe2sGCLQVebykgCHO4g2BMU5BtPkNb/Tfr3RcrLxPZvEx8eWerdWzwUYRhiR/+vr8WsGucvusmDTdmm9QVick0uZn4xrU9tnrYFCO8kFp9+2zd5RUQTj4DVvNSKc0AmasRYmid/ZFllKgpcKQ/PSHZaZNdWuUY/aKV8g/L8RZWHcSo8jgPNnZ/M6IpHsJPVZGwx6DBLbN6WqJQwudShfxtZrN+bwNCYrmABm2T/6U59qAoyyaC6e+gj3FIC88Vd9sX9UcElZiNdJAp6iC9pkwuw8dOk8zRMsZZB0NoQVZzDmD+OLtlGgji8QYDkldLKL1nI4fAI/aYqGeZ+CMplthhFLCtvWQqYfjvyb0CgSPgzDuxuBt1XUP/p2E8lJhko="
+ matrix:
+ - TOOLCHAIN=clang
+   PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
+ - TOOLCHAIN=gcc
+   PACKAGES="g++-8"
 
 before_script:
-- IMAGE=r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH
-- CNTNR=r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH
+- IMAGE=r3v-toolchain:$TOOLCHAIN-$TRAVIS_BRANCH
 
 script:
-- docker build -t $IMAGE --build-arg PACKAGES .
-- docker create --name $CNTNR $IMAGE
-- docker export $CNTNR | xz -9ev > $CNTNR.txz
+- docker build -t docker.pkg.github.com/bit2shift/docker-r3v-toolchain/$IMAGE --build-arg PACKAGES .
 
 deploy:
- provider: releases
- api_key:
-  secure: "Hsafa7WaK9qYkGhQK8N/qwS/AbGOMaWTDmWkG7HeOof18wjdQLzkuoylADfSnV90+yvxa9VGgf1MkeEG4HtZqacrAZ4gumP0FM2cWFu46orRdf1DWymnHdR7wTv1GcTBmwB5YIqhK+cUyvgA4Ljg/Z6S19zogvm+gaTH50hHhamkrmLsaOVkbhHwjYLdr0O/XPf9CDqU23TmOEyuM/R2LpzRV3txo4cx4/4LXIXi3KiKf15qqlXTFdNGkKvYwr1ElXTjaA6DKDjlB39Z0zImW3+Z3CVUL7aEyfYWFaMaOjIBlVXlmlhih9+afxgzeYpJ/y00Y3/w/HKxV+za/MwitxY1HYEDZUSWjEYaTRl1tbMyDpn32/V8OTd221SaH3i1Gn/Lgk4H6sRWARyva12e5M56jVavNbmwvR1dy69RFq1luaLqbH7SA3C35qjOf/rTM6f7kKcyQtEoc8NtRV2j9wAcMRHUCFKQ7bN6m/wcOp7fCXCC8iuByWhqmFCwsmEE11iRhVoTRF0xqBejHf5ns4f3JUANVSunkxcLvHgaPzA0PuCxCMa2pYhIyqnP3s0lX04Wxy7nccyFfRn9BhR1zB+bZecP1DQF3gWooN6qyXQ2cFKSm6Lx45sFX42QHL61Z+XF9ErLE0sGyR4YCV2spFvaGUZ+JOH0WryI27WDtL8="
- file: $CNTNR.txz
- skip_cleanup: true
+ provider: script
+ script:
+ - docker login docker.pkg.github.com -u bot2shift -p $TOKEN
+ - docker push docker.pkg.github.com/bit2shift/docker-r3v-toolchain/$IMAGE
  on:
-  tags: true
+  branch: gh-registry
