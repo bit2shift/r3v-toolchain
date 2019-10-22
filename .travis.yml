@@ -12,14 +12,15 @@ env:
    PACKAGES="g++-8"
 
 before_script:
-- IMAGE=r3v-toolchain:$TOOLCHAIN-$TRAVIS_BRANCH
+- IMAGE=r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH
 
 script:
 - docker build -t docker.pkg.github.com/bit2shift/docker-r3v-toolchain/$IMAGE --build-arg PACKAGES .
-- docker login docker.pkg.github.com -u bot2shift -p $TOKEN
 
 deploy:
  provider: script
- script: docker push docker.pkg.github.com/bit2shift/docker-r3v-toolchain/$IMAGE
+ script: >-
+  docker login docker.pkg.github.com -u bot2shift -p $TOKEN &&
+  docker push docker.pkg.github.com/bit2shift/docker-r3v-toolchain/$IMAGE
  on:
   branch: gh-registry
