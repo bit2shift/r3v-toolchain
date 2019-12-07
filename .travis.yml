@@ -16,5 +16,11 @@ before_script:
 
 script:
 - docker build -t $IMAGE --build-arg PACKAGES .
-- docker login docker.pkg.github.com -u bot2shift -p $TOKEN
-- docker push $IMAGE
+
+deploy:
+ provider: script
+ script:
+ - docker login docker.pkg.github.com -u bot2shift <<< $TOKEN &&
+ - docker push $IMAGE
+ on:
+  branch: gh-registry
