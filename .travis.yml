@@ -20,8 +20,8 @@ script:
 deploy:
  provider: script
  script: >-
-  docker login docker.pkg.github.com -u bot2shift --password-stdin <<TOKEN
+  docker login docker.pkg.github.com -u bot2shift --password-stdin <<HMM && docker push $IMAGE
    $TOKEN
-  TOKEN && docker push $IMAGE
+  HMM
  on:
   branch: gh-registry
