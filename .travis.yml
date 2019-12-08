@@ -20,10 +20,8 @@ script:
 deploy:
  provider: script
  script: >-
-  bash <<BASH
-   echo "'\$SHELL', '\$BASH_VERSION'";
-   docker login docker.pkg.github.com -u bot2shift --password-stdin <<< $TOKEN &&
-   docker push $IMAGE
-  BASH
+  echo "'\$SHELL', '\$BASH_VERSION'";
+  docker login docker.pkg.github.com -u bot2shift -p $TOKEN &&
+  docker push $IMAGE
  on:
   branch: gh-registry
