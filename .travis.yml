@@ -21,7 +21,7 @@ deploy:
  provider: script
  script: >-
   echo "'\$SHELL', '\$BASH_VERSION'";
-  docker login docker.pkg.github.com -u bot2shift -p $TOKEN &&
+  docker login docker.pkg.github.com -u bot2shift <<< $TOKEN &&
   docker push $IMAGE
  on:
   branch: gh-registry
