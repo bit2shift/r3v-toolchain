@@ -22,6 +22,6 @@ deploy:
  script: >-
   docker login docker.pkg.github.com -u bot2shift --password-stdin <<HMM && docker push $IMAGE
    $TOKEN
-  HMM
+HMM
  on:
   branch: gh-registry
