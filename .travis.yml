@@ -1,11 +1,12 @@
+os: linux
 dist: xenial
 services: docker
-language: minimal
+language: shell
 
 env:
  global:
  - secure: "Q3WGL8pLF5+fkKBM0vfTVc6Eo65fv3iwbFNoqIV9+0j9AGjpI/5EVqbTNnypt3V/cDEuT9tVwhjmYXX9DVFp1w6ltkbYh7RyYiIHkgI8dtcoYpxAlCGApCNGqppzsYhCho7S8KCYpkMDBVx+R+44Bghh7A6avSoYkwMDXxbtCiKB8MhjCwuhSskvWndU65Tj6k3wa8BNfPXTnFBqQ4HtjOdO4exl8IBYU1DXSZrVOs9cNMYhVvxdZGY2ZZxekQvkAlIQjrJJ6tE5mxmmzsx/s5TlwEhp4u0bi4QnnuOHxxJvWe2sGCLQVebykgCHO4g2BMU5BtPkNb/Tfr3RcrLxPZvEx8eWerdWzwUYRhiR/+vr8WsGucvusmDTdmm9QVick0uZn4xrU9tnrYFCO8kFp9+2zd5RUQTj4DVvNSKc0AmasRYmid/ZFllKgpcKQ/PSHZaZNdWuUY/aKV8g/L8RZWHcSo8jgPNnZ/M6IpHsJPVZGwx6DBLbN6WqJQwudShfxtZrN+bwNCYrmABm2T/6U59qAoyyaC6e+gj3FIC88Vd9sX9UcElZiNdJAp6iC9pkwuw8dOk8zRMsZZB0NoQVZzDmD+OLtlGgji8QYDkldLKL1nI4fAI/aYqGeZ+CMplthhFLCtvWQqYfjvyb0CgSPgzDuxuBt1XUP/p2E8lJhko="
- matrix:
+ jobs:
  - TOOLCHAIN=clang
    PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
  - TOOLCHAIN=gcc
