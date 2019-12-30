@@ -1,7 +1,7 @@
 os: linux
 dist: xenial
-services: docker
 language: shell
+services: docker
 
 env:
  global:
@@ -22,7 +22,7 @@ deploy:
  provider: script
  script: |
   echo 'hello from stdout'
-  echo 'hello from stderr' >&2
+  echo 'hello from stderr' >/dev/stderr
   docker login docker.pkg.github.com -u bot2shift --password-stdin <<TOKEN && docker push $IMAGE
   $TOKEN
   TOKEN
