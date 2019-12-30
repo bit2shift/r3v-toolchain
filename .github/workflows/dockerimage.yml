@@ -1,0 +1,22 @@
+name: Build then publish Docker image to GPR
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        TOOLCHAIN: [clang, gcc]
+        include:
+          - TOOLCHAIN: clang
+            PACKAGES: clang-8 libc++-8-dev libc++abi-8-dev
+          - TOOLCHAIN: gcc
+            PACKAGES: g++-8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      env:
+        IMAGE: docker.pkg.github.com/bit2shift/docker-r3v-toolchain/r3v-toolchain:${{ matrix.TOOLCHAIN }}-${{ github.ref }}
+        PACKAGES: ${{ matrix.PACKAGES }}
+      run: docker build -t $IMAGE --build-arg PACKAGES .
+    - name: Publish
+      run: echo 'not yet'
