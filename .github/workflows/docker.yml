@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build
       env:
-        IMAGE: docker.pkg.github.com/bit2shift/docker-r3v-toolchain/r3v-toolchain:${{ matrix.TOOLCHAIN }}-${{ github.ref }}
+        IMAGE: docker.pkg.github.com/bit2shift/docker-r3v-toolchain/r3v-toolchain:${{ matrix.TOOLCHAIN }}-${GITHUB_REF##*/}
         PACKAGES: ${{ matrix.PACKAGES }}
       run: docker build -t $IMAGE --build-arg PACKAGES .
     - name: Publish
