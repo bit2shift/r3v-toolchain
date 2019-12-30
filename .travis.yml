@@ -20,7 +20,7 @@ script:
 deploy:
  provider: script
  script: |
-  #!/usr/bin/env bash
+  #!/usr/bin/env bash -xe
   docker login docker.pkg.github.com -u bot2shift --password-stdin <<TOKEN && docker push $IMAGE
   $TOKEN
   TOKEN
