@@ -14,6 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
+      shell: bash
       env:
         IMAGE: docker.pkg.github.com/bit2shift/docker-r3v-toolchain/r3v-toolchain:${{ matrix.TOOLCHAIN }}-${GITHUB_REF##*/}
         PACKAGES: ${{ matrix.PACKAGES }}
