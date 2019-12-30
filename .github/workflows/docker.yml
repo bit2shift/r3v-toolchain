@@ -16,8 +16,8 @@ jobs:
     - name: Build
       shell: bash
       env:
-        IMAGE: docker.pkg.github.com/bit2shift/docker-r3v-toolchain/r3v-toolchain:${{ matrix.TOOLCHAIN }}
+        IMAGE: docker.pkg.github.com/bit2shift/docker-r3v-toolchain/r3v-toolchain:${{ matrix.TOOLCHAIN }}-${GITHUB_REF#refs/heads/}
         PACKAGES: ${{ matrix.PACKAGES }}
-      run: docker build -t $IMAGE-${GITHUB_REF##*/} --build-arg PACKAGES .
+      run: docker build -t ${{ env.IMAGE }} --build-arg PACKAGES .
     - name: Publish
       run: echo 'not yet'
