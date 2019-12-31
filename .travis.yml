@@ -19,10 +19,7 @@ script:
 - docker build -t $IMAGE --build-arg PACKAGES .
 
 before_deploy:
-- |
-  docker login docker.pkg.github.com -u bot2shift --password-stdin <<TOKEN
-  $TOKEN
-  TOKEN
+- docker login docker.pkg.github.com -u bot2shift --password-stdin <<<"$TOKEN"
 
 deploy:
  provider: script
