@@ -13,7 +13,7 @@ env:
    PACKAGES="g++-8"
 
 before_script:
-- IMAGE=docker.pkg.github.com/bit2shift/docker-r3v-toolchain/r3v-toolchain:$TOOLCHAIN-$TRAVIS_BRANCH
+- IMAGE=docker.pkg.github.com/bit2shift/r3v-toolchain/r3v-toolchain:$TOOLCHAIN-$TRAVIS_BRANCH
 
 script:
 - docker build -t $IMAGE --build-arg PACKAGES .
