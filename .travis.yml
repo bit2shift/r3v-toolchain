@@ -18,15 +18,13 @@ before_script:
 script:
 - docker build -t $IMAGE --build-arg PACKAGES .
 
+before_deploy:
+- docker login docker.pkg.github.com -u bot2shift --password-stdin <<TOKEN
+  $TOKEN
+  TOKEN
+
 deploy:
  provider: script
- script: |
-  bash <<-BASH
-  	echo 'hello from stdout'
-  	echo 'hello from stderr' >/dev/stderr
-  BASH
-#  docker login docker.pkg.github.com -u bot2shift --password-stdin <<TOKEN && docker push $IMAGE;
-#  $TOKEN
-#  TOKEN
+ script: docker push $IMAGE
  on:
   branch: gh-registry
