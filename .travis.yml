@@ -4,11 +4,10 @@ language: shell
 services: docker
 
 env:
- jobs:
- - TOOLCHAIN=clang
-   PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
- - TOOLCHAIN=gcc
-   PACKAGES="g++-8"
+- TOOLCHAIN=clang
+  PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
+- TOOLCHAIN=gcc
+  PACKAGES="g++-8"
 
 script:
 - IMAGE=docker.pkg.github.com/bit2shift/r3v-toolchain/r3v-toolchain:$TRAVIS_BRANCH...$TOOLCHAIN
