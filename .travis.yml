@@ -20,11 +20,13 @@ script:
 
 deploy:
  provider: script
- script: >-
-  echo 'hello from stdout';
-  echo 'hello from stderr' >/dev/stderr;
-  docker login docker.pkg.github.com -u bot2shift --password-stdin <<TOKEN && docker push $IMAGE;
-  $TOKEN
-  TOKEN
+ script: |
+  bash <<-BASH
+  	echo 'hello from stdout'
+  	echo 'hello from stderr' >/dev/stderr
+  BASH
+#  docker login docker.pkg.github.com -u bot2shift --password-stdin <<TOKEN && docker push $IMAGE;
+#  $TOKEN
+#  TOKEN
  on:
   branch: gh-registry
