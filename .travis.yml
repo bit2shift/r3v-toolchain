@@ -4,8 +4,6 @@ language: shell
 services: docker
 
 env:
- global:
- - secure: "VCJaoJBUTRfGTTNr+pNRiolaKjbIU+t7Z4dmsiWaFUhip69h+mX8i79pIAyy1Ptv4Y1lQtfGC2rvIaw1ah188GR2odKtvDYgL0jblBqrcWP3pWduptAmPawH5APjHhaEiW5sNQeBhVu1rtJCYRcHEW1YwF+sKyJfAS8SCOK50yuQTXRge7a1ZWg+V+7ql6/eLhrMzZGk3u+okRh62ioKGTVv+kPsLdRL898COnP3hlcthknLiYkQ3VY1ZmQ69MuCRlFldBgVECrdNXOnWSAl2mY+i8JKfDelNkXbwpvIW1icpBqygcsRj5sy3s1s+C6lGvns95nCK10KSCvY6GNOCf156g+BQV2nQ6TdKkkGqyLZnzVwn0llLvSswwCE9M/l+8kiFHvm3cUQP0lWP2vuQ+XaPgLa8qr4RKShxDCciUh3phOUO3Zasiboeif8lkjqbyomptsnbUw4TpbQ0UcA+siuSXZZhOcPpCWVl0PWgXz9aHQoFNaVZHovTBdeRgcvcoCOz/bbBYhDwlnlHbGdLswMnG91vGetD8CBh3/LET5U+qDL0BqA91vfKZDmggwAXYlXYIhbcwNWV9oOM6nyrJYk/5qxnFuatI7meUVSpWfx/HwWbP04hVhB0yCq8vkWtAsLSLmOp6aFTdAwgXqhpZZqKyPZlkU0rtUIicPW2eI="
  jobs:
  - TOOLCHAIN=clang
    PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
@@ -19,7 +17,7 @@ script:
 - docker build -t $IMAGE --build-arg PACKAGES .
 
 before_deploy:
-- docker login docker.pkg.github.com -u bot2shift --password-stdin <<<"$TOKEN"
+- docker login docker.pkg.github.com -u bot2shift --password-stdin <<<"$GITHUB_TOKEN"
 
 deploy:
  provider: script
