@@ -10,10 +10,8 @@ env:
  - TOOLCHAIN=gcc
    PACKAGES="g++-8"
 
-before_script:
-- IMAGE=docker.pkg.github.com/bit2shift/r3v-toolchain/r3v-toolchain:$TRAVIS_BRANCH...$TOOLCHAIN
-
 script:
+- IMAGE=docker.pkg.github.com/bit2shift/r3v-toolchain/r3v-toolchain:$TRAVIS_BRANCH...$TOOLCHAIN
 - docker build -t $IMAGE --build-arg PACKAGES .
 
 before_deploy:
