@@ -1,8 +1,12 @@
 FROM ubuntu:focal
 SHELL ["bash", "-c"]
-ARG PACKAGES
+ARG TOOLCHAIN
 RUN trap exit ERR;\
-    read -ra packages <<< "$PACKAGES";\
+    readonly -A toolchains=(\
+        [clang]='clang-8 libc++-8-dev libc++abi-8-dev'\
+        [gcc]='g++-8'\
+    );\
+    read -ra packages <<< "${toolchains[$TOOLCHAIN]}";\
     packages+=(cmake git jq make pkg-config);\
     packages+=(libvulkan-dev xorg-dev);\
     apt-get update;\
