@@ -1,4 +1,4 @@
-FROM ubuntu:disco
+FROM ubuntu:focal
 SHELL ["bash", "-c"]
 ARG PACKAGES
 RUN trap exit ERR;\
