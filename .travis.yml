@@ -1,27 +1,23 @@
+os: linux
 dist: xenial
+language: shell
 services: docker
-language: minimal
 
 env:
 - TOOLCHAIN=clang
-  PACKAGES="clang-8 libc++-8-dev libc++abi-8-dev"
+  PACKAGES='clang-8 libc++-8-dev libc++abi-8-dev'
 - TOOLCHAIN=gcc
-  PACKAGES="g++-8"
-
-before_script:
-- IMAGE=r3v-toolchain-$TOOLCHAIN:$TRAVIS_BRANCH
-- CNTNR=r3v-toolchain-$TOOLCHAIN-$TRAVIS_BRANCH
+  PACKAGES='g++-8'
 
 script:
-- docker build -t $IMAGE --build-arg PACKAGES .
-- docker create --name $CNTNR $IMAGE
-- docker export $CNTNR | xz -9e >$CNTNR.txz &
-- while kill -ALRM $! 2>/dev/null; do sleep 10; done; wait $!
+- IMAGE="docker.pkg.github.com/bit2shift/r3v-toolchain/r3v-toolchain:$TRAVIS_BRANCH...$TOOLCHAIN"
+- docker build -t "$IMAGE" --build-arg PACKAGES .
+
+before_deploy:
+- docker login docker.pkg.github.com -u bot2shift --password-stdin <<< "$GITHUB_TOKEN"
 
 deploy:
- provider: releases
- api_key: $GITHUB_TOKEN
- file: $CNTNR.txz
- skip_cleanup: true
+ provider: script
+ script: docker push "$IMAGE"
  on:
   tags: true
