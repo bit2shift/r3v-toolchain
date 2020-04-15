@@ -9,7 +9,7 @@ env:
 
 script:
 - IMAGE=docker.pkg.github.com/bit2shift/r3v-toolchain/r3v-toolchain
-- docker build "-t $IMAGE:"{,"$TRAVIS_BRANCH-"}"$TOOLCHAIN" --build-arg TOOLCHAIN .
+- docker build "--tag=$IMAGE:"{,"$TRAVIS_BRANCH-"}"$TOOLCHAIN" --build-arg=TOOLCHAIN .
 
 before_deploy:
 - docker login docker.pkg.github.com -u bot2shift --password-stdin <<< "$GITHUB_TOKEN"
