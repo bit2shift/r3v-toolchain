@@ -2,8 +2,8 @@ FROM ubuntu:focal
 SHELL ["bash", "-xec"]
 ARG TOOLCHAIN
 RUN readonly -A toolchains=(\
-        [clang]='clang-8 libc++-8-dev libc++abi-8-dev'\
-        [gcc]='g++-8'\
+        [clang]='clang-10 libc++-10-dev libc++abi-10-dev'\
+        [gcc]='g++-10'\
     );\
     read -ra packages <<< "${toolchains[$TOOLCHAIN]}";\
     packages+=(cmake git jq make pkg-config);\
