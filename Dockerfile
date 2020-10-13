@@ -1,8 +1,7 @@
 FROM ubuntu:focal
-SHELL ["bash", "-c"]
+SHELL ["bash", "-xec"]
 ARG TOOLCHAIN
-RUN trap exit ERR;\
-    readonly -A toolchains=(\
+RUN readonly -A toolchains=(\
         [clang]='clang-8 libc++-8-dev libc++abi-8-dev'\
         [gcc]='g++-8'\
     );\
