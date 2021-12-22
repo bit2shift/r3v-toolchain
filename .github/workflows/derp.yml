@@ -1,0 +1,10 @@
+name: '[test] build some docker image'
+on:
+  workflow_dispatch:
+jobs:
+  docker-build:
+    name: build image
+    runs-on: ubuntu-latest
+    steps:
+    - name: derp
+      run: find $PWD
