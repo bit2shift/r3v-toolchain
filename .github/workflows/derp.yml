@@ -5,12 +5,18 @@ jobs:
   docker-build:
     name: build image
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        TOOLCHAIN:
+        - clang
+        - gcc
     steps:
     - name: clone repo
       uses: actions/checkout@v2
     - name: build image
-      run: >
-        IMAGE=derp
+      run: |
+        IMAGE=derp-${{matrix.TOOLCHAIN}}
         declare -p IMAGE
     - name: derp
       run: find $PWD
