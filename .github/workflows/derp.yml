@@ -8,5 +8,9 @@ jobs:
     steps:
     - name: clone repo
       uses: actions/checkout@v2
+    - name: build image
+      run: >
+        IMAGE=derp
+        declare -p IMAGE
     - name: derp
       run: find $PWD
