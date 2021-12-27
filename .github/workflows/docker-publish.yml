@@ -21,6 +21,6 @@ jobs:
       - uses: actions/checkout@v2
       - shell: bash
         run: |
-          set -ex
+          set -eux
           echo "URI: $REGISTRY/$IMAGE"
-          echo docker build "--tag=$IMAGE:"{,"$GITHUB_REF_NAME-"}"$TOOLCHAIN" --build-arg=TOOLCHAIN .
+          docker build "--tag=$IMAGE:"{,"$GITHUB_REF_NAME-"}"$TOOLCHAIN" --build-arg=TOOLCHAIN .
