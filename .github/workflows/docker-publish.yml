@@ -1,0 +1,24 @@
+name: Build then publish Docker image
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        TOOLCHAIN:
+          - clang
+          - gcc
+    env:
+      REGISTRY: ghcr.io
+      IMAGE: ${{github.repository}}
+    steps:
+      - uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          echo "URI: $REGISTRY/$IMAGE"
+          docker build "--tag=$IMAGE:"{,"$GITHUB_REF_NAME-"}"$TOOLCHAIN" --build-arg=TOOLCHAIN .
